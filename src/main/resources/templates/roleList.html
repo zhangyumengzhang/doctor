@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>角色管理</title>
+    <script src="../static/js/jQuery.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+</head>
+<body>
+<div class="zi_com clearfix" style="padding-top: 3%;">
+    <div  class="zi_left" style="padding-top: 4%;">
+        <div class="top">
+            <span class="span1">合同管理系统</span>
+        </div>
+
+        <ul>
+            <li class="active btn-slide">
+                <a>查询统计</a>
+                <div class="er">
+                    <a>>合同信息查询</a>
+                    <a>>合同流程查询</a>
+                </div>
+            </li>
+            <li class="active btn-slide">
+                <a>基础数据管理</a>
+                <div class="er">
+                    <a href="/userListPage">>用户管理</a>
+                    <a href="/roleListPage">>角色管理</a>
+                </div>
+            </li>
+            <li class="active btn-slide">
+                <a>系统管理</a>
+                <div class="er">
+                    <a href="/draftContractListPage">>流程配置</a>
+                    <a href="/logListPage">>日志管理</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="zi_right">
+        <ul class="pro_ul clearfix">
+            <table class="table table-bordered" id="role_list_table">
+                <thead>
+                <tr>
+                    <th>角色编号</th>
+                    <th>角色名</th>
+                    <th>描述</th>
+                    <th>功能</th>
+                    <th>修改</th>
+                    <th>删除</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  th:each="role : ${roles}">
+                    <td scope="row" th:text="${role.getRid()}">1</td>
+                    <td th:text="${role.getName()}">neo</td>
+                    <td th:text="${role.getDescription()}">Otto</td>
+                    <td th:text="${role.getFunctions()}">functions</td>
+                    <td><button disabled>修改</button></td>
+                    <td><button>删除</button></td>
+                </tr>
+                </tbody>
+        </table>
+
+        <button id="addRoleDialogBtn" disabled>添加新用户</button>
+        <dialog id="addRoleDialog">
+        </dialog>
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+    $(function(){
+        $("#role_list_table").on("click", ":button", function(event){
+            // if($(this).text() === "修改"){
+            //     var uId = $(this).closest("tr").find("td").eq(0).text();
+            //     var name = $(this).closest("tr").find("td").eq(1).text();
+            //     var password = $(this).closest("tr").find("td").eq(2).text();
+            //
+            //     $("#update_user_id").attr("value", uId);
+            //     $("#update_user_name").attr("value", name);
+            //     $("#update_user_password").attr("value", password);
+            //
+            //     var dialog = document.getElementById("updateUserDialog");
+            //     dialog.showModal();
+            // }else
+            if($(this).text() === "删除"){
+                var rId = $(this).closest("tr").find("td").eq(0).text();
+
+                $.ajax({
+                    url:"deleteRoleById",
+                    data:{rId:rId},
+                    type:"get",
+                    success:function (response) {
+                        if(response==="删除成功"){
+                            alert("删除成功");
+                            location.reload(true);
+                        }else{
+                            alert("删除失败");
+                        }
+                    }
+                })
+            }
+        });
+
+        $("#updateUserBtn").click(function () {
+            var uId = $.trim($("#update_user_id").val());
+            var name = $.trim($("#update_user_name").val());
+            var password = $.trim($("#update_user_password").val());
+
+            //验证用户输入
+            if(name === ""){
+                alert("用户名不能为空");
+                return false;
+            }
+            if(password === ""){
+                alert("密码不能为空");
+                return false;
+            }
+            var data = {uId:uId, name:name, password:password};
+            $.ajax({
+                url:"updateUserById",
+                data:data,
+                type:"get",
+                success:function (response) {
+                    if(response==="修改成功"){
+                        alert("修改成功");
+                        var dialog = document.getElementById("updateUserDialog");
+                        dialog.close();
+                        location.reload(true);
+                    }else{
+                        alert("修改失败");
+                    }
+                }
+            })
+        });
+
+        $("#openAddUserDialogBtn").click(function () {
+            var dialog = document.getElementById("addUserDialog");
+            dialog.showModal();
+        });
+
+        $("#addUserBtn").click(function () {
+            var userName = $.trim($("#user_name").val());
+            var password = $.trim($("#user_password").val());
+            var passwordAgain = $.trim($("#user_password_again").val());
+
+            //验证用户输入
+            if(userName === ""){
+                alert("请输入用户名");
+                return false;
+            }
+            if(password === ""){
+                alert("请输入密码");
+                return false;
+            }
+            if(passwordAgain === ""){
+                alert("请确认密码");
+                return false;
+            }
+            if(password !== passwordAgain){
+                alert("两次输入密码不一致");
+                return false;
+            }
+
+            var data={name:userName, password:password};
+
+            $.ajax({
+                type:"GET",
+                url:"/register",
+                async:true,
+                data:data,
+                success:function (msg) {
+                    //alert(msg);
+                    if(msg==="注册成功"){
+                        alert("添加新用户成功");
+                        var dialog = document.getElementById("addUserDialog");
+                        dialog.close();
+                        location.reload(true);
+                    }else if(msg === "用户名已存在") {
+                        alert("用户名已存在");
+                    }else {
+                        alert("添加新用户失败");
+                    }
+                }
+            });
+        })
+    });
+</script>
+</html>

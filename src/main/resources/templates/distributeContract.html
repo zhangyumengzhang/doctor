@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>分配合同页面</title>
+    <style type="text/css">li{list-style:none;}</style>
+    <script src="../static/js/jQuery.js"></script>
+</head>
+<body>
+    <h1 id="contract_info" th:text="|${contract.getCNum()} ${contract.getName()}|"></h1>
+    <h3>分配会签人</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>待分配人员列表</th>
+            <th>操作</th>
+            <th>已分配人员列表</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <ul id="counter_sign_left" th:each="user: ${users}">
+                    <li th:text="|${user.getUid()} ${user.getName()}|">1 阳阳</li>
+                </ul>
+            </td>
+            <td>
+                <button id="counter_sign_to_right_btn">》》</button>
+                <br>
+                <button id="counter_sign_to_left_btn">《《</button>
+            </td>
+            <td>
+                <ul id="counter_sign_right" th:each="user: ${users}">
+                    <li th:text="|${user.getUid()} ${user.getName()}|">上海市徐泾东</li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+<script>
+    var contract_cNum = $("#contract_info").text().split(" ")[0];
+    var counter_sign_left_pre = null;
+    var counter_sign_right_pre = null;
+    var counter_sign_left_uId = -1;
+    var counter_sign_right_uId = -1;
+
+
+    $("#counter_sign_left").on("click", "li", function () {
+        if(counter_sign_left_pre !== null){
+            $(counter_sign_left_pre).css("color", "black");
+        }
+        counter_sign_left_uId = $(this).text().split(" ")[0];
+        counter_sign_left_pre = this;
+        $(this).css("color", "red");
+    });
+
+    $("#counter_sign_to_right_btn").click(function () {
+        if(counter_sign_left_uId === -1){
+            alert("未选择人员");
+            return false;
+        }
+
+        var data = {uId:counter_sign_left_uId, cNum:contract_cNum};
+        $.ajax({
+            type:"GET",
+            url:"/assignCounterSignContractProcess",
+            async:true,
+            data:data,
+            success:function (msg) {
+                //alert(msg);
+                if(msg==="分配成功"){
+                    counter_sign_left_pre.css("color", "black");
+                    counter_sign_left_uId = -1;
+                    counter_sign_left_pre = null;
+                    alert("分配成功");
+                    location.reload(true);
+                }else {
+                    alert("分配失败");
+                }
+            }
+        });
+    });
+
+    $("#counter_sign_right").on("click", "li", function () {
+        if(counter_sign_right_pre !== null){
+            counter_sign_right_pre.css("color", "black");
+        }
+        counter_sign_right_uId = $(this).text().split(" ")[0];
+        counter_sign_right_pre = this;
+        $(this).css("color", "red");
+    });
+
+    $("#counter_sign_to_left_btn").click(function () {
+        if(counter_sign_right_uId === -1){
+            alert("未选择人员");
+            return false;
+        }
+
+        var data = {uId:counter_sign_right_uId, cNum:contract_cNum};
+        $.ajax({
+            type:"GET",
+            url:"/deleteContactProcess",
+            async:true,
+            data:data,
+            success:function (msg) {
+                //alert(msg);
+                if(msg==="更改成功"){
+                    counter_sign_right_pre.css("color", "black");
+                    counter_sign_right_uId = -1;
+                    counter_sign_right_pre = null;
+                    alert("更改成功");
+                    location.reload(true);
+                }else {
+                    alert("更改失败");
+                }
+            }
+        });
+    })
+</script>
+</html>

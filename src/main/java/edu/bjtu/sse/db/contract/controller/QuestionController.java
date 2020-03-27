@@ -34,5 +34,28 @@ public class QuestionController {
         QuestionDaoImpl questionDaoImpl = new QuestionDaoImpl();
         return   questionDaoImpl.getQuestion5(answer1,answer2,answer3,answer4);
     }
-
+    @RequestMapping("/question6")
+    public String question6(@RequestParam String answer1,@RequestParam String answer2,@RequestParam String answer3,@RequestParam String answer4,@RequestParam String answer5) {
+        HttpServletResponse response = null;
+        QuestionDaoImpl questionDaoImpl = new QuestionDaoImpl();
+        return   questionDaoImpl.getQuestion6(answer1,answer2,answer3,answer4,answer5);
+    }
+    @RequestMapping("/question7")
+    public String question7(@RequestParam String answer1,@RequestParam String answer2,@RequestParam String answer3,@RequestParam String answer4,@RequestParam String answer5,@RequestParam String answer6) {
+    HttpServletResponse response = null;
+    QuestionDaoImpl questionDaoImpl = new QuestionDaoImpl();
+    return   questionDaoImpl.getQuestion7(answer1,answer2,answer3,answer4,answer5,answer6);
+}
+    @RequestMapping("/question8")
+    public String question8(@RequestParam String answer1,@RequestParam String answer2,@RequestParam String answer3,@RequestParam String answer4,@RequestParam String answer5,@RequestParam String answer6,@RequestParam String answer7) {
+        HttpServletResponse response = null;
+        QuestionDaoImpl questionDaoImpl = new QuestionDaoImpl();
+        return   questionDaoImpl.getQuestion8(answer1,answer2,answer3,answer4,answer5,answer6,answer7);
+    }
+    @RequestMapping("/result")
+    public String result(@RequestParam int id){
+        HttpServletResponse response = null;
+        QuestionDaoImpl questionDaoImpl = new QuestionDaoImpl();
+        return   questionDaoImpl.getResult(id);
+    }
 }

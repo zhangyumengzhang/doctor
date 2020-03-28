@@ -14,4 +14,12 @@ public interface QuestionDao {
     String  getQuestion6(String answer1,String answer2,String answer3,String answer4,String answer5);
     String  getQuestion7(String answer1,String answer2,String answer3,String answer4,String answer5,String answer6);
     String  getQuestion8(String answer1,String answer2,String answer3,String answer4,String answer5,String answer6,String answer7);
+    String  getQuestion9(String answer1,String answer2,String answer3,String answer4,String answer5,String answer6,String answer7,String answer8);
+    int  getQuestionid4(String answer1,String answer2,String answer3);
+    int  getQuestionid5(String answer1,String answer2,String answer3,String answer4);
+    int  getQuestionid6(String answer1,String answer2,String answer3,String answer4,String answer5);
+    int  getQuestionid7(String answer1,String answer2,String answer3,String answer4,String answer5,String answer6);
+    int  getQuestionid8(String answer1,String answer2,String answer3,String answer4,String answer5,String answer6,String answer7);
+    int  getQuestionid9(String answer1,String answer2,String answer3,String answer4,String answer5,String answer6,String answer7,String answer8);
 }
+

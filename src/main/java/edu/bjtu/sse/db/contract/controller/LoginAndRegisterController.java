@@ -48,4 +48,14 @@ public class LoginAndRegisterController {
 
         return "修改失败";
     }
+    @RequestMapping("/getinformation")
+    public User getinformation(@RequestParam String name) {
+        UserDaoImpl userDaoImpl = new UserDaoImpl();
+        User user = userDaoImpl.getUserByName(name);
+        if (user == null)
+            return null;
+        else {
+            return user;
+        }
+    }
 }

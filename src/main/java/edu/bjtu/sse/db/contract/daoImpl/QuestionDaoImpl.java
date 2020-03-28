@@ -173,4 +173,159 @@ public class QuestionDaoImpl implements QuestionDao {
             return null;
         }
     }
+    @Override
+    public String getQuestion9(String answer1, String answer2, String answer3, String answer4,String answer5,String answer6,String answer7,String answer8) {
+        Connection connection = JDBCUtil.getConnection();
+        String sql = "SELECT DISTINCT q9 FROM q_and_a where a1=? and a2=? and a3=? and a4=? and a5=? and a6=? and a7=? and a8=?";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1,answer1);
+            pst.setString(2,answer2);
+            pst.setString(3,answer3);
+            pst.setString(4,answer4);
+            pst.setString(5,answer5);
+            pst.setString(6,answer6);
+            pst.setString(7,answer7);
+            pst.setString(8,answer8);
+            ResultSet resultSet = pst.executeQuery();
+            resultSet.next();
+            return resultSet.getString("q9");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public int getQuestionid4(String answer1, String answer2, String answer3) {
+        Connection connection = JDBCUtil.getConnection();
+        String sql = "SELECT DISTINCT id FROM q_and_a where a1=? and a2=? and a3=?";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1,answer1);
+            pst.setString(2,answer2);
+            pst.setString(3,answer3);
+            ResultSet resultSet = pst.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public int getQuestionid5(String answer1, String answer2, String answer3, String answer4) {
+        Connection connection = JDBCUtil.getConnection();
+        String sql = "SELECT DISTINCT id FROM q_and_a where a1=? and a2=? and a3=? and a4=?";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1,answer1);
+            pst.setString(2,answer2);
+            pst.setString(3,answer3);
+            pst.setString(4,answer4);
+            ResultSet resultSet = pst.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    @Override
+    public int getQuestionid6(String answer1, String answer2, String answer3, String answer4,String answer5) {
+        Connection connection = JDBCUtil.getConnection();
+        String sql = "SELECT DISTINCT id FROM q_and_a where a1=? and a2=? and a3=? and a4=? and a5=?";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1,answer1);
+            pst.setString(2,answer2);
+            pst.setString(3,answer3);
+            pst.setString(4,answer4);
+            pst.setString(5,answer5);
+            ResultSet resultSet = pst.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    @Override
+    public int getQuestionid7(String answer1, String answer2, String answer3, String answer4,String answer5,String answer6) {
+        Connection connection = JDBCUtil.getConnection();
+        String sql = "SELECT DISTINCT id FROM q_and_a where a1=? and a2=? and a3=? and a4=? and a5=? and a6=?";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1,answer1);
+            pst.setString(2,answer2);
+            pst.setString(3,answer3);
+            pst.setString(4,answer4);
+            pst.setString(5,answer5);
+            pst.setString(6,answer6);
+            ResultSet resultSet = pst.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    @Override
+    public int getQuestionid8(String answer1, String answer2, String answer3, String answer4,String answer5,String answer6,String answer7) {
+        Connection connection = JDBCUtil.getConnection();
+        String sql = "SELECT DISTINCT id FROM q_and_a where a1=? and a2=? and a3=? and a4=? and a5=? and a6=? and a7=?";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1,answer1);
+            pst.setString(2,answer2);
+            pst.setString(3,answer3);
+            pst.setString(4,answer4);
+            pst.setString(5,answer5);
+            pst.setString(6,answer6);
+            pst.setString(7,answer7);
+            ResultSet resultSet = pst.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    @Override
+    public int getQuestionid9(String answer1, String answer2, String answer3, String answer4,String answer5,String answer6,String answer7,String answer8) {
+        Connection connection = JDBCUtil.getConnection();
+        String sql = "SELECT DISTINCT id FROM q_and_a where a1=? and a2=? and a3=? and a4=? and a5=? and a6=? and a7=? and a8=?";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1,answer1);
+            pst.setString(2,answer2);
+            pst.setString(3,answer3);
+            pst.setString(4,answer4);
+            pst.setString(5,answer5);
+            pst.setString(6,answer6);
+            pst.setString(7,answer7);
+            pst.setString(8,answer8);
+            ResultSet resultSet = pst.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }

@@ -94,4 +94,16 @@ public class QuestionController {
         QuestionDaoImpl questionDaoImpl = new QuestionDaoImpl();
         return   questionDaoImpl.getQuestionid8(answer1,answer2,answer3,answer4,answer5,answer6,answer7);
     }
+    @RequestMapping("/questionid9")
+    public int questionid9(@RequestParam String answer1,@RequestParam String answer2,@RequestParam String answer3,@RequestParam String answer4,@RequestParam String answer5,@RequestParam String answer6,@RequestParam String answer7,@RequestParam String answer8) {
+        HttpServletResponse response = null;
+        QuestionDaoImpl questionDaoImpl = new QuestionDaoImpl();
+        return   questionDaoImpl.getQuestionid9(answer1,answer2,answer3,answer4,answer5,answer6,answer7,answer8);
+    }
+    @RequestMapping("/qresult")
+    public String qresult(@RequestParam String answer1,@RequestParam String answer2,@RequestParam String answer3,@RequestParam String answer4,@RequestParam String answer5,@RequestParam String answer6,@RequestParam String answer7,@RequestParam String answer8,@RequestParam String answer9){
+        HttpServletResponse response = null;
+        QuestionDaoImpl questionDaoImpl = new QuestionDaoImpl();
+        return   questionDaoImpl.getqResult(answer1,answer2,answer3,answer4,answer5,answer6,answer7,answer8,answer9);
+    }
 }

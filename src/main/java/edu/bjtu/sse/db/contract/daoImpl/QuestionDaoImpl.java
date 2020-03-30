@@ -328,4 +328,30 @@ public class QuestionDaoImpl implements QuestionDao {
             return -1;
         }
     }
+
+    @Override
+    public String getqResult(String answer1, String answer2, String answer3, String answer4, String answer5, String answer6, String answer7, String answer8, String answer9) {
+        Connection connection = JDBCUtil.getConnection();
+        String sql = "SELECT DISTINCT result FROM q_and_a where a1=? and a2=? and a3=? and a4=? and a5=? and a6=? and a7=? and a8=? and a9=?";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1,answer1);
+            pst.setString(2,answer2);
+            pst.setString(3,answer3);
+            pst.setString(4,answer4);
+            pst.setString(5,answer5);
+            pst.setString(6,answer6);
+            pst.setString(7,answer7);
+            pst.setString(8,answer8);
+            pst.setString(9,answer9);
+            ResultSet resultSet = pst.executeQuery();
+            resultSet.next();
+            return resultSet.getString("result");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

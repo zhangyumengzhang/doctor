@@ -12,10 +12,10 @@ import java.util.ArrayList;
 @RestController
 public class bingliController {
     @RequestMapping("/charu")
-    public boolean insert(@RequestParam String name, @RequestParam String time, @RequestParam String result) {
+    public boolean insert(@RequestParam String name, @RequestParam String time, @RequestParam String result, @RequestParam String content) {
         HttpServletResponse response = null;
         bingliDaoImpl binglidaoImpl = new bingliDaoImpl();
-        if(binglidaoImpl.insertbingli(name,time,result)){
+        if(binglidaoImpl.insertbingli(name,time,result,content)){
             return true;
         }else{
             return false;

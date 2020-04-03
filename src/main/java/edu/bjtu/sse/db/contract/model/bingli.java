@@ -5,10 +5,11 @@ import java.sql.Time;
 public class bingli {
     private String name;
 
-    public bingli(String name, String time, String result) {
+    public bingli(String name, String time, String result,String content) {
         this.name=name;
         this.result=result;
         this.time=time;
+        this.content=content;
     }
 
     public String getName() {
@@ -37,4 +38,13 @@ public class bingli {
 
     private String time;
     private String result;
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

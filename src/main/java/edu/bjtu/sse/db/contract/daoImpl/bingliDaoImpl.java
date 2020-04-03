@@ -19,7 +19,7 @@ public class bingliDaoImpl implements bingliDao {
             ResultSet resultSet = pst.executeQuery();
 
             while (resultSet.next()) {
-                bingli bingli = new bingli(resultSet.getString("name"),resultSet.getString("time"),resultSet.getString("result"));
+                bingli bingli = new bingli(resultSet.getString("name"),resultSet.getString("time"),resultSet.getString("result"),resultSet.getString("content"));
                 list.add(bingli);
             }
             return list;
@@ -30,15 +30,16 @@ public class bingliDaoImpl implements bingliDao {
     }
 
     @Override
-    public boolean insertbingli(String name, String time, String result) {
+    public boolean insertbingli(String name, String time, String result,String content) {
         Connection connection = JDBCUtil.getConnection();
-        String sql = "INSERT INTO bingli (name, time, result) VALUES (?,?,?)";
+        String sql = "INSERT INTO bingli (name, time, result,content) VALUES (?,?,?,?)";
         try {
             PreparedStatement pst = connection.prepareStatement(sql);
 
             pst.setString(1, name);
             pst.setString(2, time);
             pst.setString(3, result);
+            pst.setString(4, content);
             pst.execute();
             return true;
         } catch (SQLException e) {

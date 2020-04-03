@@ -7,5 +7,5 @@ import java.util.ArrayList;
 
 public interface bingliDao {
     ArrayList<bingli> getAllbingli(String name);
-    boolean insertbingli(String name, String time, String result);
+    boolean insertbingli(String name, String time, String result,String content);
 }

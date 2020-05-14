@@ -4,6 +4,7 @@ import edu.bjtu.sse.db.contract.dao.UserDao;
 import edu.bjtu.sse.db.contract.model.User;
 import edu.bjtu.sse.db.contract.util.JDBCUtil;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,8 +58,9 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, name);
             ResultSet resultSet = pst.executeQuery();
-            while (resultSet.next()) {
-                return new User(resultSet.getInt("uId"), resultSet.getString("name"), resultSet.getString("password"),resultSet.getString("gender"),resultSet.getString("age"));
+            System.out.println(pst);
+            while(resultSet.next()) {
+                return new User(resultSet.getInt("uId"), resultSet.getString("name"), resultSet.getString("password"), resultSet.getString("gender"), resultSet.getString("age"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,9 +78,9 @@ public class UserDaoImpl implements UserDao {
             pst.setInt(1, uId);
             ResultSet resultSet = pst.executeQuery();
 
-            while (resultSet.next()) {
-                return new User(resultSet.getInt("uId"), resultSet.getString("name"), resultSet.getString("password"),resultSet.getString("gender"),resultSet.getString("age"));
-            }
+           while(resultSet.next()) {
+               return new User(resultSet.getInt("uId"), resultSet.getString("name"), resultSet.getString("password"), resultSet.getString("gender"), resultSet.getString("age"));
+           }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,7 +131,6 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, newName);
             pst.setInt(2, uId);
-
             pst.execute();
             return true;
         } catch (SQLException e) {
@@ -153,6 +154,7 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
             return false;
         }
+
     }
 
     @Override
@@ -161,12 +163,12 @@ public class UserDaoImpl implements UserDao {
         String sql = "SELECT * FROM user WHERE name = ? and password=?";
 
         try {
+            System.out.println(sql);
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, password);
             ResultSet resultSet = pst.executeQuery();
-
-            while (resultSet.next()) {
+            while (resultSet!=null) {
                 return true;
             }
         } catch (SQLException e) {
@@ -175,36 +177,4 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
-    public static void main(String[] args) {
-        UserDaoImpl userDaoImpl = new UserDaoImpl();
-        if (userDaoImpl.insertUser("梦梦", "12345678","女","20"))
-            System.out.println("插入新user成功！！！");
-        else
-            System.out.println("插入新user失败...");
-
-        ArrayList<User> list = userDaoImpl.getAllUser();
-        if (list == null)
-            System.out.println("查找失败");
-        else {
-            System.out.println("/***************user*****************/");
-            int count = 1;
-            for (User d : list) {
-                System.out.println(count++ + ": " + d.getUid() + d.getName() + d.getPassword());
-            }
-        }
-        User list1 = userDaoImpl.getUserByName("梦梦");
-        if (list1 == null)
-            System.out.println("查找失败");
-        else {
-            System.out.println("/***************user*****************/");
-
-            System.out.println("mingcheng" + list1.getUid() + list1.getName() + list1.getPassword());
-        }
-        boolean b = userDaoImpl.login("123", "12345678");
-        if (b == true) {
-            System.out.println("dengluchenggong");
-        } else {
-            System.out.println("denglushibai");
-        }
-    }
 }

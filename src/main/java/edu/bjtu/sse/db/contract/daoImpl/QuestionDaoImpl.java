@@ -40,6 +40,8 @@ public class QuestionDaoImpl implements QuestionDao {
             pst.setString(1,answer1);
             ResultSet resultSet = pst.executeQuery();
             resultSet.next();
+            System.out.println(pst);
+            System.out.println(answer1);
           return resultSet.getString("q2");
 
         } catch (SQLException e) {
@@ -1028,4 +1030,8 @@ public class QuestionDaoImpl implements QuestionDao {
         }
     }
 
+    public static void main(String[] args) {
+        QuestionDaoImpl questiondaoimpl=new QuestionDaoImpl();
+        System.out.println(questiondaoimpl.getQuestion2("头痛"));
+    }
 }

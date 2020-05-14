@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class JDBCUtil {
     private static Connection connection = null;
-    private static String url = "jdbc:mysql://localhost:3306/app?serverTimezone=UTC&useSSL=false";
+    private static String url = "jdbc:mysql://123.56.175.138:3306/app?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf8";
     private static String username = "root";
     private static String password = "123456";
 

@@ -9,16 +9,8 @@ public class JDBCUtil {
     private static String username = "root";
     private static String password = "123456";
 
-    /**
-     * A private constructor to prevent being instantiated.
-     */
     private JDBCUtil() {}
-
-    /**
-     * create a JDBC connection depending on the properties file--"jdbc.properties".
-     *
-     * @return
-     */
+    
     public static Connection getConnection() {
         if(connection != null) return connection;
 
